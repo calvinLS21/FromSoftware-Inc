@@ -652,8 +652,7 @@ select:focus, textarea:focus, input[type="text"]:focus, button:focus {
   section {
     margin-top: 3rem;
   }
-
-  .home-container,
+.home-container,
   .history-container,
   .feedback-container,
   .product-container,
@@ -661,9 +660,8 @@ select:focus, textarea:focus, input[type="text"]:focus, button:focus {
   .contact-container,
   .upcoming-titles,
   .game-section {
-    margin: 1.875rem 1.25rem;
+    margin: 2rem;
   }
-
   .image-grid {
     grid-template-columns: 1fr;
   }
@@ -746,6 +744,11 @@ select:focus, textarea:focus, input[type="text"]:focus, button:focus {
 }
 
 @media (max-width: 576px) {
+
+  .image-grid {
+    grid-template-columns: 1fr;
+  }
+
   .motto h1 {
     font-size: 2rem;
   }
