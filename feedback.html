@@ -11,19 +11,23 @@
 
   <header>
     <div class="banner-container">
-        <img src="images\FromSoftwareBanner2.0.1.png" alt="Banner image" width="1368" height="200">
-      <nav>
-        <ul>
-
-          <li><a href="index.html">HOME</a></li>
-          <li><a href="company.html">COMPANY</a></li>
-          <li><a href="contact-us.html">CONTACT US</a></li>
-          <li><a href="products.html">PRODUCTS</a></li>
-          <li><a href="press-release.html">PRESS RELEASE</a></li>
-          <li><a href="feedback.html" class="active">FEEDBACK</a></li>
-        
-        </ul>
-      </nav>
+      <img src="images\FromSoftwareBanner2.0.1.png" alt="Banner image">
+    
+    <nav>
+      <div class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul id="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="company.html">Company</a></li>
+        <li><a href="contact-us.html">Contact Us</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="press-release.html">Press Release</a></li>
+        <li><a href="feedback.html" class="active">Feedback</a></li>
+      </ul>
+    </nav>
     </div>
   </header>
 
@@ -31,6 +35,12 @@
   <h1>Please do find the time to fill the form below</h1>
   <main class="main-content">
 <form action="#" method="post">
+  <div class="form-group">
+ <label for="Name">Name:</label>
+ <input type="text" name="Name"  maxlength="25" required>
+ <label for="Surname">Surname:</label>
+ <input type="text" name="Surname"  maxlength="25" required>
+  </div>
    <div class="form-group">
        <label for="Navigation">Did you find the website easy to navigate through</label>
        <select id="Navigation" name="Navigation" required>
@@ -72,8 +82,8 @@
 </div>
 
 <div class="form-group">
-     <label for="Favourite Game">What your favourite game developed by FromSoftware</label>
-     <input type="text" id="Favourite Game" name="Favourite Game" placeholder="Enter Favourite Game">  
+     <label for="Favourite Game">Favourite Game:</label>
+     <input type="text" id="Favourite Game" name="Favourite Game" placeholder="Enter Favourite Game" maxlength="25">  
 </div>
 
 <div class="form-group">
@@ -106,6 +116,6 @@
 </div>
 </footer>
   
-  <script src="script.js"></script>
+<script src="fromsoftware.js"></script>
 </body>
 </html>
