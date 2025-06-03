@@ -7,75 +7,38 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   
-    // Feedback form handling
+  // Feedback form handling
     const feedbackForm = document.querySelector('form');
     if (!feedbackForm) return; // Exit if form not found
-  
-    // Add name attributes to radio buttons and inputs for proper grouping
-    const radioGroups = [
-      {
-        label: 'Did you find the website easy to navigate through',
-        name: 'navigation',
-        options: ['Very Easy', 'Easy', 'Neutral', 'Difficult', 'Very Difficult']
-      },
-      {
-        label: 'How would you rate the speed of the website',
-        name: 'speed',
-        options: ['It is very fast', 'It is fast', 'It is slow']
-      },
-      {
-        label: 'How would you rate the perfomance of the website',
-        name: 'performance',
-        options: ['Great', 'Good', 'Fair', 'Poor']
-      },
-      {
-        label: 'Where you able to find the services you were looking for',
-        name: 'services',
-        options: ['I found the services', 'I found some of the services', 'I found no services at all']
-      }
-    ];
-  
-    // Update radio buttons with name and value attributes
-    radioGroups.forEach(group => {
-      const labels = document.querySelectorAll('label');
-      labels.forEach(label => {
-        if (label.textContent.includes(group.label)) {
-          const inputs = label.querySelectorAll('input[type="radio"]');
-          inputs.forEach((input, index) => {
-            input.name = group.name;
-            input.value = group.options[index] || input.nextSibling.textContent.trim();
-          });
-        }
-      });
-    });
   
     // Validate form data
     function validateForm() {
       let isValid = true;
       let errorMessage = '';
   
-      // Validate radio button groups
-      radioGroups.forEach(group => {
-        const radios = document.querySelectorAll(`input[name="${group.name}"]`);
-        const checked = Array.from(radios).some(radio => radio.checked);
-        if (!checked) {
-          isValid = false;
-          errorMessage += `Please select an option for "${group.label}".\n`;
-        }
-      });
+      // Validate name and surname
+      const nameInput = document.querySelector('input[name="Name"]');
+      const surnameInput = document.querySelector('input[name="Surname"]');
+      
+      if (!nameInput.value.trim()) {
+        isValid = false;
+        errorMessage += 'Please enter your name.\n';
+      }
+      
+      if (!surnameInput.value.trim()) {
+        isValid = false;
+        errorMessage += 'Please enter your surname.\n';
+      }
   
       // Validate favorite game input
-      const favoriteGameInput = document.querySelector('input[name="favorite_game"]');
-      if (!favoriteGameInput || !favoriteGameInput.value.trim()) {
-        isValid = false;
-        errorMessage += 'Please enter your favorite FromSoftware game.\n';
-      } else if (favoriteGameInput.value.trim().length < 3) {
+      const favoriteGameInput = document.querySelector('input[name="Favourite Game"]');
+      if (favoriteGameInput && favoriteGameInput.value.trim().length < 3) {
         isValid = false;
         errorMessage += 'Favorite game must be at least 3 characters long.\n';
       }
   
-      // Validate suggestions (optional)
-      const suggestionsInput = document.querySelector('textarea[name="suggestions"]');
+      // Validate suggestions
+      const suggestionsInput = document.querySelector('textarea[name="Improveent Suggestions"]');
       if (suggestionsInput && suggestionsInput.value.trim() && suggestionsInput.value.trim().length < 10) {
         isValid = false;
         errorMessage += 'Suggestions must be at least 10 characters long or left empty.\n';
@@ -98,14 +61,16 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
   
-      // Collect form data
+      // Collection of form data
       const formData = {
-        navigation: document.querySelector('input[name="navigation"]:checked')?.value || '',
-        speed: document.querySelector('input[name="speed"]:checked')?.value || '',
-        performance: document.querySelector('input[name="performance"]:checked')?.value || '',
-        services: document.querySelector('input[name="services"]:checked')?.value || '',
-        favorite_game: document.querySelector('input[name="favorite_game"]')?.value.trim() || '',
-        suggestions: document.querySelector('textarea[name="suggestions"]')?.value.trim() || ''
+        name: document.querySelector('input[name="Name"]').value.trim(),
+        surname: document.querySelector('input[name="Surname"]').value.trim(),
+        navigation: document.querySelector('select[name="Navigation"]').value,
+        speed: document.querySelector('select[name="Speed"]').value,
+        performance: document.querySelector('select[name="Performance"]').value,
+        services: document.querySelector('select[name="Services availability"]').value,
+        favorite_game: document.querySelector('input[name="Favourite Game"]')?.value.trim() || '',
+        suggestions: document.querySelector('textarea[name="Improveent Suggestions"]')?.value.trim() || ''
       };
   
       // Simulate sending data to a server
@@ -152,15 +117,4 @@ document.addEventListener('DOMContentLoaded', () => {
       if (resultDiv) resultDiv.remove();
     });
     feedbackForm.appendChild(resetButton);
-  
-    // Add name attributes to text inputs if missing
-    const favoriteGameInput = document.querySelector('input[type="text"]');
-    if (favoriteGameInput && !favoriteGameInput.name) {
-      favoriteGameInput.name = 'favorite_game';
-    }
-  
-    const suggestionsInput = document.querySelector('textarea');
-    if (suggestionsInput && !suggestionsInput.name) {
-      suggestionsInput.name = 'suggestions';
-    }
-  });
+});  
