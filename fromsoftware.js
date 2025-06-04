@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
         performance: document.querySelector('select[name="Performance"]').value,
         services: document.querySelector('select[name="Services availability"]').value,
         favorite_game: document.querySelector('input[name="Favourite Game"]')?.value.trim() || '',
-        suggestions: document.querySelector('textarea[name="Improveent Suggestions"]')?.value.trim() || ''
+        suggestions: document.querySelector('textarea[name="Improvement Suggestions"]')?.value.trim() || ''
       };
   
       // Simulate sending data to a server
