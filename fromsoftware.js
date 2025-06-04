@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
   
       // Validate suggestions
-      const suggestionsInput = document.querySelector('textarea[name="Improveent Suggestions"]');
+      const suggestionsInput = document.querySelector('textarea[name="Improvement Suggestions"]');
       if (suggestionsInput && suggestionsInput.value.trim() && suggestionsInput.value.trim().length < 10) {
         isValid = false;
         errorMessage += 'Suggestions must be at least 10 characters long or left empty.\n';
@@ -60,7 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   
     // Handle form submission
-    function submitForm() {
+    function submitForm(e) {
+      e.preventDefault();
       const { isValid, errorMessage } = validateForm();
       const resultDiv = document.createElement('div');
       resultDiv.classList.add('form-result');
@@ -73,25 +74,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
   
-      // Collection of form data
-      const formData = {
-        name: document.querySelector('input[name="Name"]').value.trim(),
-        surname: document.querySelector('input[name="Surname"]').value.trim(),
-        navigation: document.querySelector('select[name="Navigation"]').value,
-        speed: document.querySelector('select[name="Speed"]').value,
-        performance: document.querySelector('select[name="Performance"]').value,
-        services: document.querySelector('select[name="Services availability"]').value,
-        favorite_game: document.querySelector('input[name="Favourite Game"]')?.value.trim() || '',
-        suggestions: document.querySelector('textarea[name="Improvement Suggestions"]')?.value.trim() || ''
-      };
-  
-      // Simulate sending data to a server
-      fetch('https://jsonplaceholder.typicode.com/posts', {
+      // Let Formspree handle the submission
+      fetch(feedbackForm.action, {
         method: 'POST',
+        body: new FormData(feedbackForm),
         headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
+          'Accept': 'application/json'
+        }
       })
       .then(response => {
         if (!response.ok) throw new Error('Network error');
@@ -113,10 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   
     // Add event listener for form submission
-    feedbackForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      submitForm();
-    });
+    feedbackForm.addEventListener('submit', submitForm);
   
     // Add reset button
     const resetButton = document.createElement('button');
@@ -129,4 +115,4 @@ document.addEventListener('DOMContentLoaded', () => {
       if (resultDiv) resultDiv.remove();
     });
     feedbackForm.appendChild(resetButton);
-}); 
+});
